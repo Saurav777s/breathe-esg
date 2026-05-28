@@ -32,7 +32,7 @@ def parse_utility_file(batch, file_path: str) -> list[dict]:
 
     df.rename(columns=resolved, inplace=True)
 
-    from ingestion.models import RawUtilityRecord
+    from apps.ingestion.models import RawUtilityRecord
     results = []
 
     for idx, row in df.iterrows():
