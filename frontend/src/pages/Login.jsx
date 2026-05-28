@@ -13,7 +13,7 @@ export default function Login() {
     setLoading(true);
     setError('');
     try {
-      const res = await axios.post(`${BASE_URL}/auth/token/`, creds, {
+      const res = await axios.post(`${BASE_URL}/api/auth/token/`, creds, {
         headers: { 'Content-Type': 'application/json' }
       });
       const { access, refresh } = res.data;
