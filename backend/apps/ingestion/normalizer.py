@@ -66,14 +66,13 @@ def normalize_sap_record(raw, tenant, batch) -> EmissionRecord | None:
     normalized_qty = qty * factor
 
     # Derive category from material number prefix
-    scope, category = SAP_MATERIAL_CATEGORY_MAP.get(
-        raw.MATNR.upper(),
-        SAP_MATERIAL_CATEGORY_MAP['DEFAULT']
-    )
+    scope, category = SAP_MATERIAL_CATEGORY_MAP['DEFAULT']
     for key in SAP_MATERIAL_CATEGORY_MAP:
-        if key in raw.MATNR.upper():
-            scope, category = SAP_MATERIAL_CATEGORY_MAP[key]
-            break
+      if key == 'DEFAULT':
+        continue
+      if key in raw.MATNR.upper():
+        scope, category = SAP_MATERIAL_CATEGORY_MAP[key]
+        break
 
     try:
         act_date = datetime.strptime(raw.BLDAT, '%Y-%m-%d').date()

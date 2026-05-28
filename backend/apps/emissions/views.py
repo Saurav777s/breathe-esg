@@ -100,10 +100,17 @@ class ReviewActionView(APIView):
             obj.edit_note = note
         obj.save()
 
+        action_map = {'approve': 'approved', 
+                       'reject': 'rejected', 
+                       'flag': 'updated'}
+
         AuditLog.objects.create(
             tenant=request.user.tenant,
             user=request.user,
-            action=action + 'd' if action != 'flag' else 'updated',
+           ## action=action + 'd' if action != 'flag' else 'updated',
+          
+           action=action_map[action],
+
             model_name='EmissionRecord',
             object_id=str(pk),
             diff={'action': action, 'note': note},
@@ -127,7 +134,7 @@ class BulkReviewView(APIView):
             tenant=request.user.tenant,
         ).exclude(status='locked').update(
             status=new_status,
-            reviewed_by=request.user,
+            reviewed_by_id=request.user.pk,
             reviewed_at=timezone.now(),
         )
 
