@@ -1,0 +1,95 @@
+[
+  {
+    "id": "TRIP-2024-001",
+    "traveler_id": "EMP-042",
+    "segments": [
+      {
+        "type": "flight",
+        "origin": "LHR",
+        "destination": "JFK",
+        "departure_date": "2024-01-10",
+        "return_date": "2024-01-14",
+        "cabin_class": "economy",
+        "vendor": "British Airways",
+        "cost_usd": "850.00"
+      },
+      {
+        "type": "hotel",
+        "origin": "JFK",
+        "destination": "JFK",
+        "departure_date": "2024-01-10",
+        "return_date": "2024-01-14",
+        "vendor": "Marriott Times Square",
+        "nights": "4",
+        "cost_usd": "1200.00"
+      }
+    ]
+  },
+  {
+    "id": "TRIP-2024-002",
+    "traveler_id": "EMP-017",
+    "segments": [
+      {
+        "type": "flight",
+        "origin": "BOM",
+        "destination": "LHR",
+        "departure_date": "2024-02-05",
+        "return_date": "2024-02-09",
+        "cabin_class": "business",
+        "vendor": "Air India",
+        "cost_usd": "3200.00"
+      },
+      {
+        "type": "hotel",
+        "origin": "LHR",
+        "destination": "LHR",
+        "departure_date": "2024-02-05",
+        "return_date": "2024-02-09",
+        "vendor": "Hilton London Heathrow",
+        "nights": "4",
+        "cost_usd": "980.00"
+      }
+    ]
+  },
+  {
+    "id": "TRIP-2024-003",
+    "traveler_id": "EMP-089",
+    "segments": [
+      {
+        "type": "flight",
+        "origin": "MAA",
+        "destination": "SIN",
+        "departure_date": "2024-03-12",
+        "return_date": "2024-03-15",
+        "cabin_class": "economy",
+        "vendor": "Singapore Airlines",
+        "cost_usd": "620.00"
+      },
+      {
+        "type": "car",
+        "origin": "SIN",
+        "destination": "SIN",
+        "departure_date": "2024-03-12",
+        "return_date": "2024-03-15",
+        "vendor": "Hertz Singapore",
+        "cost_usd": "240.00"
+      }
+    ]
+  },
+  {
+    "id": "TRIP-2024-004",
+    "traveler_id": "EMP-055",
+    "segments": [
+      {
+        "type": "flight",
+        "origin": "DEL",
+        "destination": "CDG",
+        "departure_date": "2024-03-20",
+        "return_date": "2024-03-25",
+        "cabin_class": "economy",
+        "vendor": "Air France",
+        "cost_usd": "1100.00"
+      }
+    ]
+  }
+]

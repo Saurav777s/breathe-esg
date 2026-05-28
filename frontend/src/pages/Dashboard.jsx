@@ -23,32 +23,45 @@ export default function Dashboard() {
   const [selected, setSelected] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    API.get('/dashboard/').then(r => setSummary(r.data));
-    fetchRecords();
-  }, [filters]);
-
   const fetchRecords = async () => {
-    setLoading(true);
+  setLoading(true);
+  try {
     const params = Object.fromEntries(
       Object.entries(filters).filter(([, v]) => v)
     );
     const r = await API.get('/records/', { params });
     setRecords(r.data);
+  } catch (err) {
+    console.error('fetchRecords failed:', err.response?.status, err.response?.data);
+  } finally {
     setLoading(false);
-  };
+  }
+};
 
-  const bulkAction = async (action) => {
+useEffect(() => {
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  API.get('/dashboard/').then(r => setSummary(r.data)).catch(console.error);
+  fetchRecords();
+}, [filters]); // eslint-disable-line react-hooks/exhaustive-deps
+
+ const bulkAction = async (action) => {
+  try {
     await API.post('/records/bulk-review/', { ids: selected, action });
     setSelected([]);
     fetchRecords();
-  };
+  } catch (err) {
+    alert('Bulk action failed: ' + (err.response?.data?.error || err.message));
+  }
+};
 
-  const reviewRecord = async (id, action) => {
+const reviewRecord = async (id, action) => {
+  try {
     await API.post(`/records/${id}/review/`, { action });
     fetchRecords();
-  };
-
+  } catch (err) {
+    alert('Review failed: ' + (err.response?.data?.error || err.message));
+  }
+};
   return (
     <div className="p-6 max-w-7xl mx-auto">
       <h1 className="text-2xl font-bold mb-6">Emissions Review Dashboard</h1>
