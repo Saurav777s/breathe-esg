@@ -8,28 +8,47 @@ export default function Login() {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
+//   const handleLogin = async (e) => {
+//   e.preventDefault();
+//   setLoading(true);
+//   setError('');
+//   try {
+//     const res = await axios.post(
+//       `${BASE_URL}/auth/token/`,
+//       JSON.stringify({ username: creds.username, password: creds.password }),
+//       {
+//         headers: {
+//           'Content-Type': 'application/json',
+//           'Accept': 'application/json',
+//         }
+//       }
+//     );
+//     const { access, refresh } = res.data;
+//     localStorage.setItem('access_token', access);
+//     localStorage.setItem('refresh_token', refresh);
+//     setTimeout(() => { window.location.replace('/dashboard'); }, 100);
+//   } catch (err) {
+//     console.error('Login error:', err.response?.status, err.response?.data);
+//     setError('Invalid username or password');
+//     setLoading(false);
+//   }
+// };
   const handleLogin = async (e) => {
   e.preventDefault();
   setLoading(true);
-  setError('');
   try {
-    const res = await axios.post(
-      `${BASE_URL}/auth/token/`,
+    // DEBUG — check what we're actually sending
+    const debugRes = await axios.post(
+      `${BASE_URL}/debug-token/`,
       JSON.stringify({ username: creds.username, password: creds.password }),
-      {
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json',
-        }
-      }
+      { headers: { 'Content-Type': 'application/json' } }
     );
-    const { access, refresh } = res.data;
-    localStorage.setItem('access_token', access);
-    localStorage.setItem('refresh_token', refresh);
-    setTimeout(() => { window.location.replace('/dashboard'); }, 100);
+    console.log('DEBUG RESPONSE:', debugRes.data);
+    alert(JSON.stringify(debugRes.data, null, 2));
   } catch (err) {
-    console.error('Login error:', err.response?.status, err.response?.data);
-    setError('Invalid username or password');
+    console.error(err);
+    alert('Debug failed: ' + err.message);
+  } finally {
     setLoading(false);
   }
 };
