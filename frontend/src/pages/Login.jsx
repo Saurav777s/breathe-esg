@@ -9,24 +9,30 @@ export default function Login() {
   const [loading, setLoading] = useState(false);
 
   const handleLogin = async (e) => {
-    e.preventDefault();
-    setLoading(true);
-    setError('');
-    try {
-      const res = await axios.post(`${BASE_URL}/api/auth/token/`, creds, {
-        headers: { 'Content-Type': 'application/json' }
-      });
-      const { access, refresh } = res.data;
-      localStorage.setItem('access_token', access);
-      localStorage.setItem('refresh_token', refresh);
-      // Small delay to ensure localStorage is written before redirect
-      setTimeout(() => { window.location.replace('/dashboard'); }, 100);
-    } catch (err) {
-      console.error('Login error:', err.response?.data);
-      setError('Invalid username or password');
-      setLoading(false);
-    }
-  };
+  e.preventDefault();
+  setLoading(true);
+  setError('');
+  try {
+    const res = await axios.post(
+      `${BASE_URL}/auth/token/`,
+      JSON.stringify({ username: creds.username, password: creds.password }),
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+        }
+      }
+    );
+    const { access, refresh } = res.data;
+    localStorage.setItem('access_token', access);
+    localStorage.setItem('refresh_token', refresh);
+    setTimeout(() => { window.location.replace('/dashboard'); }, 100);
+  } catch (err) {
+    console.error('Login error:', err.response?.status, err.response?.data);
+    setError('Invalid username or password');
+    setLoading(false);
+  }
+};
 
   return (
     <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center',
