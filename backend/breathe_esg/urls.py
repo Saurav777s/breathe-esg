@@ -15,44 +15,19 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 
-# breathe_esg/urls.py
-# from django.contrib import admin
-# from django.urls import path, include
-# from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
-
-# urlpatterns = [
-#     path('admin/', admin.site.urls),
-#     path('api/auth/token/', TokenObtainPairView.as_view()),
-#     path('api/auth/token/refresh/', TokenRefreshView.as_view()),
-#     path('api/', include('apps.ingestion.urls')),
-#     path('api/', include('apps.emissions.urls')),
-# ]
-
-
-
-
+breathe_esg/urls.py
 from django.contrib import admin
 from django.urls import path, include
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
-from django.http import JsonResponse
-from django.views.decorators.csrf import csrf_exempt
-import json
-
-@csrf_exempt
-def debug_token(request):
-    if request.method == 'POST':
-        return JsonResponse({
-            'content_type': request.content_type,
-            'body_raw': request.body.decode('utf-8'),
-            'POST_data': dict(request.POST),
-        })
-    return JsonResponse({'method': request.method})
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/auth/token/', TokenObtainPairView.as_view()),
     path('api/auth/token/refresh/', TokenRefreshView.as_view()),
-    path('api/debug-token/', debug_token),              # ← add this
     path('api/', include('apps.ingestion.urls')),
     path('api/', include('apps.emissions.urls')),
 ]
+
+
+
+
